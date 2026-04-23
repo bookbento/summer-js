@@ -30,7 +30,7 @@ function App() {
 
       <div className="app">
         <header className="app-header">
-          <h1>Tech Shop</h1>
+          <h1>JukJik Shop</h1>
           <p>{products.length} products | {availableCount} available</p>
         </header>
         <div className="gallery-grid">
