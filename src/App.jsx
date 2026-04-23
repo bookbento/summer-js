@@ -1,7 +1,11 @@
 import './App.css'
 import Greeting from './Greeting'
+import products from './data/products'
+import ProductCard from './components/ProductCard'
 
 function App() {
+  const availableCount = products.filter(p => p.inStock).length;
+
   const tips = [
     'Take one small action before aiming for perfect results.',
     'Focus on progress, not pressure.',
@@ -11,7 +15,7 @@ function App() {
 
   return (
     <main className="page">
-      <section className="card">
+      {/* <section className="card">
         <Greeting name="Sarunpat" />
 
         <div className="tips-block">
@@ -22,7 +26,18 @@ function App() {
             ))}
           </ul>
         </div>
-      </section>
+      </section> */}
+
+      <div className="app">
+        <header className="app-header">
+          <h1>Tech Shop</h1>
+          <p>{products.length} products | {availableCount} available</p>
+        </header>
+        <div className="gallery-grid">
+          {products.map(product => (
+            <ProductCard {...product} />))}
+        </div>
+      </div>
     </main>
   )
 }
