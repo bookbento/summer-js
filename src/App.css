@@ -1,77 +1,124 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+  --primary-color: #4f46e5;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --radius: 12px;
+}
 
-.page {
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 1rem;
+  background: var(--primary-color);
+  color: white;
+  border-radius: var(--radius);
+}
+
+/* Controls: Search & Filter */
+.controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.filter-btn:hover {
+  background: #f1f5f9;
+}
+
+.filter-btn.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* Grid Layout */
+.country-grid {
   display: grid;
-  place-items: center;
-  min-height: 100vh;
-  padding: 24px;
-  background: rgb(255, 254, 254);
-  font-family: "Kanit", sans-serif;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
-.card {
-  width: min(760px, 92vw);
-  background: #8c8c8c;
-  padding: 42px;
-  color: #ffffff;
+/* Country Card (สมมติว่าใช้ class จากไฟล์เดิม) */
+.country-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+  height: 100%;
 }
 
-.greeting-label {
-  margin: 0 0 6px;
+.country-card h3,
+.country-card p {
+  padding-left: 20px;
+}
+
+.country-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.country-card:hover {
+  transform: translateY(-5px);
+}
+
+.stats-bar {
+  margin-bottom: 1rem;
   font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #ffffff;
+  color: var(--text-muted);
 }
 
-.greeting-block h1 {
-  margin: 0 0 18px;
-  font-size: clamp(1.9rem, 3vw, 2.5rem);
-  line-height: 1.1;
-  color: #ffffff;
+/* Responsive Breakpoints */
+@media (min-width: 768px) {
+  .controls-section {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .app {
+    padding: 2rem;
+  }
 }
 
-.date-time {
-  margin: 0 0 4px;
-  font-size: 0.9rem;
-  color: #ffffff;
-}
-
-.hour-line {
-  margin: 0 0 10px;
-  font-size: 0.9rem;
-  color: #ffffff;
-}
-
-.mood-line {
-  margin: 0;
-  font-size: 0.9rem;
-  font-style: italic;
-  color: #ffffff;
-}
-
-.tips-block {
-  margin-top: 18px;
-  padding-top: 18px;
-  border-top: 1px solid #ffffff;
-}
-
-.tips-block h2 {
-  margin: 0 0 10px;
-  font-size: 1.15rem;
-  color: #ffffff;
-}
-
-.tips-list {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding-left: 1.2rem;
-  font-size: 0.9rem;
-}
-
-.tips-list li {
-  line-height: 1.45;
-  color: #ffffff;
+/* States */
+.loading, .error, .no-results {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
 }
