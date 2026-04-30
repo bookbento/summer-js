@@ -1,4 +1,5 @@
 import { useExpenses } from "../context/ExpenseContext";
+import styles from "./ExpenseSummary.module.css";
 
 function ExpenseSummary() {
   const { expenses, totalAmount, categories } = useExpenses();
@@ -13,12 +14,12 @@ function ExpenseSummary() {
   }, {});
 
   return (
-    <div className="summary">
+    <div className={styles.summary}>
       <h2>Total: ${totalAmount.toFixed(2)}</h2>
       <p>{expenses.length} transactions</p>
 
       {Object.entries(byCategory).map(([cat, amt]) => (
-        <div key={cat}>
+        <div key={cat} className={styles.categoryItem}>
           {cat}: ${amt.toFixed(2)}
         </div>
       ))}

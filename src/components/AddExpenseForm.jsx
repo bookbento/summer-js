@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useExpenses } from "../context/ExpenseContext";
+import styles from "./AddExpenseForm.module.css";
 
 function AddExpenseForm() {
   const { addExpense, categories } = useExpenses();
@@ -15,7 +16,7 @@ function AddExpenseForm() {
     if (!name.trim()) return setError("Enter name");
     if (!amount || parseFloat(amount) <= 0) return setError("Enter valid amount");
 
-    addExpense(name, amount, category);
+    addExpense(name, parseFloat(amount), category);
 
     setName("");
     setAmount("");
@@ -23,29 +24,31 @@ function AddExpenseForm() {
   };
 
   return (
-    <form className="add-form" onSubmit={handleSubmit}>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <form className={styles.card + " " + styles.form} onSubmit={handleSubmit}>
+      {error && <p className={styles.error}>{error}</p>}
 
       <input
+        className={styles.input}
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Expense name"
       />
 
       <input
+        className={styles.input}
         type="number"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder="Amount"
       />
 
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      <select className={styles.select} value={category} onChange={(e) => setCategory(e.target.value)}>
         {categories.map((c) => (
           <option key={c}>{c}</option>
         ))}
       </select>
 
-      <button type="submit">+ Add</button>
+      <button className={styles.button}>+ Add</button>
     </form>
   );
 }
