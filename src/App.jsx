@@ -1,30 +1,21 @@
-import './App.css'
-import Greeting from './Greeting'
+import { ExpenseProvider } from "./context/ExpenseContext";
+import ExpenseSummary from "./components/ExpenseSummary";
+import AddExpenseForm from "./components/AddExpenseForm";
+import ExpenseList from "./components/ExpenseList";
+import "./App.css";
 
 function App() {
-  const tips = [
-    'Take one small action before aiming for perfect results.',
-    'Focus on progress, not pressure.',
-    'Pause, breathe, and restart with clarity when stuck.',
-    'Protect your energy by finishing one task at a time.',
-  ]
-
   return (
-    <main className="page">
-      <section className="card">
-        <Greeting name="Sarunpat" />
+    <ExpenseProvider>
+      <div className="app">
+        <h1>💸 Expense Tracker</h1>
 
-        <div className="tips-block">
-          <h2>Motivational Tips</h2>
-          <ul className="tips-list">
-            {tips.map((tip, index) => (
-              <li key={index}>{tip}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-    </main>
-  )
+        <ExpenseSummary />
+        <AddExpenseForm />
+        <ExpenseList />
+      </div>
+    </ExpenseProvider>
+  );
 }
 
-export default App
+export default App;
