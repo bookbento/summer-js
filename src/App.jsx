@@ -1,30 +1,49 @@
-import './App.css'
-import Greeting from './Greeting'
+import { useState, useEffect } from "react";
+import { ExpenseProvider } from "./context/ExpenseContext";
+import ExpenseSummary from "./components/ExpenseSummary";
+import AddExpenseForm from "./components/AddExpenseForm";
+import ExpenseList from "./components/ExpenseList";
+import WeatherInfo from "./components/WeatherInfo";
+import styles from "./App.module.css";
 
 function App() {
-  const tips = [
-    'Take one small action before aiming for perfect results.',
-    'Focus on progress, not pressure.',
-    'Pause, breathe, and restart with clarity when stuck.',
-    'Protect your energy by finishing one task at a time.',
-  ]
+  const [isDark, setIsDark] = useState(false);
+  const title = import.meta.env.VITE_APP_APP_TITLE || "Expense Tracker";
+
+  // Handle Dark Mode
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (isDark) {
+      root.setAttribute("data-theme", "dark");
+    } else {
+      root.removeAttribute("data-theme");
+    }
+  }, [isDark]);
 
   return (
-    <main className="page">
-      <section className="card">
-        <Greeting name="Sarunpat" />
+    <ExpenseProvider>
+      <div className={styles.app}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>{title}</h1>
+          <button 
+            className={styles.themeToggle}
+            onClick={() => setIsDark(!isDark)}
+          >
+            {isDark ? "☀️ Light" : "🌙 Dark"}
+          </button>
+        </header>
 
-        <div className="tips-block">
-          <h2>Motivational Tips</h2>
-          <ul className="tips-list">
-            {tips.map((tip, index) => (
-              <li key={index}>{tip}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-    </main>
-  )
+        <WeatherInfo />
+        <ExpenseSummary />
+        <AddExpenseForm />
+        <ExpenseList />
+
+        <footer style={{ marginTop: "40px", textAlign: "center", color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+          <p>v{import.meta.env.VITE_APP_VERSION} | Built with ❤️ by Bookbik</p>
+        </footer>
+      </div>
+    </ExpenseProvider>
+  );
 }
 
-export default App
+export default App;
